@@ -1,0 +1,79 @@
+@startuml
+class Mastermind
+class Result
+class SecretCombination
+class ProposedCombination
+class Game
+class YesNoDialog
+class Utils
+enum Color
+
+
+Mastermind *-- YesNoDialog
+Mastermind *-- "1..n" Game
+Result --> SecretCombination
+Result ..> ProposedCombination
+SecretCombination *-- "4" Color
+ProposedCombination *-- "4" Color
+Game *-- Result
+Result ..> Utils
+ProposedCombination ..> Utils
+
+Mastermind : -initYesNoDialog()
+Mastermind : -initGame()
+Mastermind : -initResult()
+Mastermind : -initError()
+Mastermind : -initProposedCombiantion()
+Mastermind : -initSecretCombination()
+
+
+
+Game : -MAX_ATTEMPTS
+Game : -attempts
+Game : -WINNER_MSG
+Game : -LOSSER_MSG
+Game : printGame()
+Game : incAttempts()
+Game : isGameOver()
+
+Result : #results [Object[] result]
+Result : #ProposedCombination
+Result : +SECRET_COMBINATION
+Result : -askProposedCombinatio()
+Result : -getResult()
+Result : +addResult()
+
+SecretCombination : #SECRET_COMBINATION
+SecretCombination : -COMBINATION_LENGTH
+SecretCombination : -createRandomSecretCombination()
+SecretCombination : -getRandomInt()
+
+
+ProposedCombination : -COMBINATION_LENGTH
+ProposedCombination : #PROPOSED_COMBIATION
+ProposedCombination : -POSSIBLE_COLORS()
+ProposedCombination : -isRightLength()
+ProposedCombination : -isInColorSet()
+ProposedCombination : -containUniqueColors()
+ProposedCombination : -anyError()
+ProposedCombination : -getProposedCombination()
+
+
+YesNoDialog : -question
+YesNoDialog : -answer
+YesNoDialog : -saveAnswer()
+YesNoDialog : +isAffirmative()
+YesNoDialog : +isNegative()
+YesNoDialog : +askToPlayAgain()
+
+Utils : +isIn()
+
+Color : R
+Color : G
+Color : B
+Color : Y
+Color : C
+Color : M
+
+
+@enduml
