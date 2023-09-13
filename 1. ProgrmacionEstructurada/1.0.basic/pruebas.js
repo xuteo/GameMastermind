@@ -1,4 +1,4 @@
-const { Console } = require("../../node_modules/console-mpds");
+const { Console } = require("./console");
 const console = new Console();
 
 let variable='hola';
