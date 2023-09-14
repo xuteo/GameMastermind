@@ -1,0 +1,85 @@
+@startuml
+class Mastermind
+class SecretCombination
+class ProposedCombination
+class Game
+class YesNoDialog
+enum Color
+class CombinationError
+class CombinationErrorView
+class GameView
+class Result
+class ProposedCombinationView
+
+Mastermind *-- YesNoDialog
+Mastermind *-- "1..n" Game
+CombinationError *-- "4" Color
+SecretCombination ..> CombinationError
+Game *-- SecretCombination
+Game o-- ProposedCombination
+Game <.. GameView
+Game ..> Result
+ProposedCombination ..> CombinationError
+ProposedCombination <.. ProposedCombinationView
+CombinationError <.. CombinationErrorView
+
+Mastermind : +play()
+
+Game : -MAX_ATTEMPTS
+Game : -resume()
+Game : +play()
+
+Result : -createResultHolder()
+Result : -countBlacks()
+Result : -countWhites()
+Result : +calculateResult()
+
+GameView : +printWinner()
+GameView : +printLosser()
+GameView : +printHeader()
+GameView : +printFinalResult()
+GameView : +printBoard()
+GameView : +printTitle()
+
+SecretCombination : -SECRET_COMBINATION
+SecretCombination : -createRandomSecretCombination()
+SecretCombination : -getRandomInt()
+SecretCombination : -assignRandomLetter()
+SecretCombination : +create()
+SecretCombination : +get()
+
+ProposedCombination : -proposedCombinations
+ProposedCombination : +request()
+ProposedCombination : +add()
+ProposedCombination : +getLast()
+ProposedCombination : +getAll()
+ProposedCombination : +count()
+
+ProposedCombinationView : +read()
+
+CombinationError : -COMBINATION_LENGTH
+CombinationError : -getPossibleColors()
+CombinationError : -isRightLength()
+CombinationError : -isInColorSet()
+CombinationError : -containUniqueColors()
+CombinationError : -isIn()
+CombinationError : +anyError()
+CombinationError : +getCombinationLength()
+
+CombinationErrorView : +printErrors()
+
+YesNoDialog : -question
+YesNoDialog : -answer
+YesNoDialog : -saveAnswer()
+YesNoDialog : +isAffirmative()
+YesNoDialog : +isNegative()
+YesNoDialog : +askToPlayAgain()
+
+Color : R
+Color : G
+Color : B
+Color : Y
+Color : C
+Color : M
+
+@enduml
